@@ -117,11 +117,13 @@ pharos-goalpilot-v2/
 
 ## 🔌 Data Sources
 
-| Source | Purpose |
-|---|---|
-| `https://rpc.pharos.xyz` | Native balance, tx count, logs |
-| `https://pharos.socialscan.io/api/v1` | Full tx history, token balances |
-| `trace_filter` RPC | Contract interaction analysis |
+| Source | Purpose | Network |
+|---|---|---|
+| `https://atlantic.dplabs-internal.com` | Native balance, tx count, logs | Testnet |
+| `https://rpc.pharos.xyz` | Native balance, tx count, logs | Mainnet |
+| `https://atlantic.pharosscan.xyz` | TX history, token balances | Testnet |
+| `https://pharosscan.xyz` | TX history, token balances | Mainnet |
+| `trace_filter` RPC | Contract interaction analysis | Both |
 
 Supports **Pharos Mainnet** (Chain ID 1672) and **Atlantic Testnet** (Chain ID 688689).
 
