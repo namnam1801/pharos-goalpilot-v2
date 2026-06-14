@@ -1,0 +1,34 @@
+{
+  "protocols": [
+    {
+      "name": "Harbor",
+      "type": "lending",
+      "address": "0x0000000000000000000000000000000000000000",
+      "apy_stable": 4.2,
+      "apy_volatile": 6.8,
+      "risk": "low",
+      "pharos_native": true
+    },
+    {
+      "name": "FaroSwap",
+      "type": "dex",
+      "address": "0x0000000000000000000000000000000000000000",
+      "apy_lp_phrs_usdt": 12.5,
+      "apy_lp_phrs_weth": 18.0,
+      "risk": "medium",
+      "pharos_native": true
+    }
+  ],
+  "networks": {
+    "mainnet": {
+      "chain_id": 1672,
+      "rpc": "https://rpc.pharos.xyz",
+      "explorer": "https://pharosscan.xyz"
+    },
+    "testnet": {
+      "chain_id": 688689,
+      "rpc": "https://atlantic.dplabs-internal.com",
+      "explorer": "https://testnet.pharosscan.xyz"
+    }
+  }
+}
