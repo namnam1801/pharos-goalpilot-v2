@@ -84,7 +84,7 @@ def snapshot(address: str, demo: bool = False) -> WalletSnapshot:
             TokenBalance("WETH", 0.042, 84.0, True),
         ]
         return WalletSnapshot(
-            address=address,
+            address=address if address != "0xDEMO" else "0xA318B3a688593CEBc15Da907231BeA2F98f63b0D",
             native_phrs=320.0,
             native_usd=160.0,
             tokens=tokens,

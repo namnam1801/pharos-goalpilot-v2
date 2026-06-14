@@ -280,7 +280,7 @@ def analyze(address: str, demo: bool = False) -> WalletProfile:
     """
     if demo:
         return WalletProfile(
-            address=address,
+            address=address if address != "0xDEMO" else "0xA318B3a688593CEBc15Da907231BeA2F98f63b0D",
             wallet_type="Yield Farmer",
             risk_score=54,
             behavior_score=82,
