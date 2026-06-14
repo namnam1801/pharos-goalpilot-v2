@@ -3,7 +3,7 @@
 > **"Tell me the goal. I'll figure out the transactions."**
 
 GoalPilot v2 is an AI-powered financial planning skill for the Pharos ecosystem.  
-Unlike command-based tools that require users to know *what to do*, GoalPilot starts by understanding *who you are* — then builds a personalized, simulated action plan.
+Unlike command-based tools that require users to know *what to do*, GoalPilot starts by understanding *who you are* - then builds a personalized, simulated action plan.
 
 ---
 
