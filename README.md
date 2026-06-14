@@ -1,4 +1,4 @@
-# Pharos GoalPilot v2 — AI Financial Planner
+# Pharos GoalPilot v2 - AI Financial Planner
 
 > **"Tell me the goal. I'll figure out the transactions."**
 
@@ -129,18 +129,18 @@ Supports **Pharos Mainnet** (Chain ID 1672) and **Atlantic Testnet** (Chain ID 6
 
 ## 🔧 Supported Frameworks
 
-- **Pharos Skill Engine** — compatible with Pharos Agent Center
-- **MCP (Model Context Protocol)** — skill is stateless and JSON-in/JSON-out ready
-- **Any JSON-RPC Pharos node** — no vendor lock-in
+- **Pharos Skill Engine** - compatible with Pharos Agent Center
+- **MCP (Model Context Protocol)** - skill is stateless and JSON-in/JSON-out ready
+- **Any JSON-RPC Pharos node** - no vendor lock-in
 
 ---
 
 ## 🛡️ Safety
 
-- **Read-only by default** — no private key required for planning
-- **Dry-run mode** — `--dry-run` skips confirmation gate entirely
-- **Confirmation required** — user must explicitly approve before any payload is returned
-- **No funds moved** — GoalPilot returns unsigned TX payloads only; signing is always the user's responsibility
+- **Read-only by default** - no private key required for planning
+- **Dry-run mode** - `--dry-run` skips confirmation gate entirely
+- **Confirmation required** - user must explicitly approve before any payload is returned
+- **No funds moved** - GoalPilot returns unsigned TX payloads only; signing is always the user's responsibility
 
 ---
 
@@ -165,9 +165,9 @@ Supports **Pharos Mainnet** (Chain ID 1672) and **Atlantic Testnet** (Chain ID 6
 
 ## License
 
-MIT-0 — No attribution required. Build freely.
+MIT-0 - No attribution required. Build freely.
 
 ---
 
-*Built for Pharos Agent Carnival — Phase 1 Skill Hackathon*  
+*Built for Pharos Agent Carnival - Phase 1 Skill Hackathon*  
 *"Reusable tools and production-grade primitives."*
