@@ -8,8 +8,8 @@ from dataclasses import dataclass
 from typing import List
 
 
-PHAROS_RPC = "https://rpc.pharos.xyz"
-SOCIALSCAN_API = "https://pharos.socialscan.io/api/v1"
+PHAROS_RPC = "https://atlantic.dplabs-internal.com"
+SOCIALSCAN_API = "https://atlantic.pharosscan.xyz/api/v1"
 
 # Mock token prices (replace with live oracle in prod)
 TOKEN_PRICES_USD = {
@@ -59,16 +59,24 @@ def _get_native_balance(address: str) -> float:
 
 
 def _get_token_balances(address: str) -> list:
-    try:
-        r = requests.get(
-            f"{SOCIALSCAN_API}/explorer/command_api/account/tokenBalance",
-            params={"address": address}, timeout=10
-        )
-        data = r.json()
-        if data.get("status") == "1":
-            return data.get("data", [])
-    except Exception:
-        pass
+    endpoints = [
+        f"https://atlantic.pharosscan.xyz/api/v2/addresses/{address}/token-balances",
+        f"https://atlantic.pharosscan.xyz/api?module=account&action=tokenbalance&address={address}",
+        f"{SOCIALSCAN_API}/explorer/command_api/account/tokenBalance?address={address}",
+    ]
+    for url in endpoints:
+        try:
+            r = requests.get(url, timeout=10, headers={"Accept": "application/json"})
+            data = r.json()
+            if isinstance(data, list):
+                return data
+            if isinstance(data, dict):
+                if "items" in data:
+                    return data["items"]
+                if data.get("status") == "1":
+                    return data.get("data", [])
+        except Exception:
+            continue
     return []
 
 
@@ -121,12 +129,13 @@ def snapshot(address: str, demo: bool = False) -> WalletSnapshot:
     total_usd = native_usd + sum(t.value_usd for t in tokens)
     idle_usd = native_usd + sum(t.value_usd for t in tokens if t.is_idle)
 
-    # Simple risk: ratio of volatile assets
+    # Risk: ratio of volatile assets, capped for native-only wallets
     volatile_usd = native_usd + sum(
         t.value_usd for t in tokens
         if t.symbol.upper() not in ("USDT", "USDC", "DAI")
     )
-    risk_score = min(int(volatile_usd / max(total_usd, 1) * 100), 100)
+    raw_risk = int(volatile_usd / max(total_usd, 1) * 100)
+    risk_score = min(raw_risk, 65) if not tokens else min(raw_risk, 100)
 
     return WalletSnapshot(
         address=address,

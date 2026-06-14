@@ -10,8 +10,8 @@ from dataclasses import dataclass, asdict
 from typing import Optional
 
 
-PHAROS_RPC = "https://rpc.pharos.xyz"
-SOCIALSCAN_API = "https://pharos.socialscan.io/api/v1"
+PHAROS_RPC = "https://atlantic.dplabs-internal.com"
+SOCIALSCAN_API = "https://atlantic.pharosscan.xyz/api/v1"
 
 # Known Pharos protocol contract tags
 PROTOCOL_TAGS = {
@@ -45,9 +45,27 @@ def _rpc(method: str, params: list) -> dict:
 
 def _get_tx_history(address: str, limit: int = 100) -> list:
     """
-    Fetch transaction history via SocialScan API.
+    Fetch transaction history via Pharosscan (SocialScan) API.
     Falls back to trace_filter on RPC if API unavailable.
     """
+    # Try Pharosscan API v2
+    endpoints = [
+        f"https://atlantic.pharosscan.xyz/api/v2/addresses/{address}/transactions",
+        f"https://atlantic.pharosscan.xyz/api?module=account&action=txlist&address={address}&sort=desc",
+    ]
+    for url in endpoints:
+        try:
+            r = requests.get(url, timeout=10, headers={"Accept": "application/json"})
+            data = r.json()
+            # v2 format
+            if isinstance(data, dict) and "items" in data:
+                return data["items"]
+            # etherscan-compat format
+            if data.get("status") == "1" and data.get("result"):
+                return data["result"]
+        except Exception:
+            continue
+
     try:
         url = f"{SOCIALSCAN_API}/explorer/command_api/account/transaction"
         params = {"address": address, "page": 1, "size": limit}
